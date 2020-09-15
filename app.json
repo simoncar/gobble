@@ -1,28 +1,64 @@
 {
-  "expo": {
-    "name": "gobble",
-    "slug": "gobble",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "web": {
-      "favicon": "./assets/images/favicon.png"
-    }
-  }
+	"expo": {
+		"name": "Gobble",
+		"slug": "gobble",
+		"version": "38.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"scheme": "gobbleapp",
+		"userInterfaceStyle": "automatic",
+		"description": "Restaurant Menu Scanner with Extras",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#D4BBBB"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": [
+			"**/*"
+		],
+		"ios": {
+			"supportsTablet": true,
+			"buildNumber": "1",
+			"bundleIdentifier": "co.simon.gobble"
+		},
+		"android": {
+			"package": "co.simon.gobble",
+			"versionCode": 1,
+			"permissions": []
+		},
+		"web": {
+			"favicon": "./assets/images/favicon.png"
+		},
+		"packagerOpts": {
+			"config": "metro.config.js",
+			"sourceExts": [
+				"js",
+				"jsx",
+				"svg",
+				"ts",
+				"tsx"
+			]
+		},
+		"extra": {
+			"sentryDSN": "https://97b653955c4a47419c123e9578516305@o85126.ingest.sentry.io/5429966"
+		},
+		"hooks": {
+			"postPublish": [
+				{
+					"file": "sentry-expo/upload-sourcemaps",
+					"config": {
+						"organization": "mower-train-software",
+						"project": "gobble",
+						"authToken": "92c8da52431846ca8f6fe52b9de0db28b039efc6463b4e56996c4a583a75dda1"
+					}
+				}
+			]
+		},
+		"experiments": {
+			"redesignedLogBox": true
+		}
+	}
 }

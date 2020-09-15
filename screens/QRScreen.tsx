@@ -6,7 +6,7 @@ import * as Linking from 'expo-linking';
 import { saveURL } from "../util/firebase"
 
 export default function QR() {
-	const [hasPermission, setHasPermission] = useState(null);
+	const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 	const [scanned, setScanned] = useState(false);
 
 	useEffect(() => {
@@ -16,7 +16,14 @@ export default function QR() {
 		})();
 	}, []);
 
-	const handleBarCodeScanned = ({ type, data }) => {
+	//{ type: BarCodeScanner.Constants.BarCodeType, data: string }
+
+	interface IProps {
+		type: BarCodeScanner.Constants.BarCodeType;
+		data: string
+	}
+
+	const handleBarCodeScanned = ({ type, data }: IProps) => {
 		setScanned(true);
 		//alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 		saveURL(data)
@@ -38,6 +45,7 @@ export default function QR() {
 				justifyContent: 'flex-end',
 			}}>
 			<BarCodeScanner
+				barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
 				onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
 				style={StyleSheet.absoluteFillObject}
 			/>

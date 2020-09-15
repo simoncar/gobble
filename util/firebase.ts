@@ -5,11 +5,14 @@ export function saveURL(url: string) {
 
 	var docData = {
 		url: url,
-		timestamp: firebase.firestore.Timestamp.fromDate(new Date("December 10, 1815")),
+		timestamp: firebase.firestore.Timestamp.now(),
 
 	};
 
-	firebase.firestore().collection("qr").add(docData)
+	firebase
+		.firestore()
+		.collection("qr")
+		.add(docData)
 		.then(function (docRef) {
 			return ("Done:" + docRef.id)
 		})
