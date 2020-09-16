@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { Camera } from 'expo-camera';
+import { Snap } from "../util/photo"
 
 export default function PhotoScreen({ navigation }) {
 
@@ -21,6 +22,11 @@ export default function PhotoScreen({ navigation }) {
 	if (hasPermission === false) {
 		return <Text>No access to camera</Text>;
 	}
+
+	 snapPhoto(() => {
+
+	})
+
 	return (
 		<View style={{ flex: 1 }}>
 			<Camera style={{ flex: 1 }} type={type}>
