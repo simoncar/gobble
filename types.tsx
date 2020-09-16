@@ -4,22 +4,20 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-	TabOne: undefined;
-	TabTwo2: undefined;
 	QR: undefined;
-
-	"History": undefined;
+	History: undefined;
 };
 
 export type TabOneParamList = {
 	TabOneScreen: undefined;
 };
 
-export type TabTwoParamList = {
+export type GobblesStackParamList = {
 	GobbleScreen: undefined;
+	PhotoScreen: undefined;
 };
 
-export type QRParamList = {
+export type QRStackParamList = {
 	QR: undefined;
 	QRScreen: undefined;
 };
