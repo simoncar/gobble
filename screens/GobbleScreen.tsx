@@ -18,7 +18,7 @@ export default function GobbleScreen({ navigation }) {
 
 function Add(navigation) {
 	return <TouchableHighlight style={styles.addStep} underlayColor="#ff7043" onPress={() => {
-		navigation.push("Photo",);
+		navigation.push("PhotoScreen",);
 	}}>
 		<Entypo name="camera" size={28} color={"white"} />
 	</TouchableHighlight>;

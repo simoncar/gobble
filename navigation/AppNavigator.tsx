@@ -7,8 +7,34 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import GobbleScreen from '../screens/GobbleScreen';
 import QRScreen from '../screens/QRScreen';
+import PhotoScreen from '../screens/PhotoScreen';
 
-import { BottomTabParamList, TabTwoParamList, QRParamList } from '../types';
+import { BottomTabParamList, GobblesStackParamList, QRStackParamList } from '../types';
+
+const QRStack = createStackNavigator<QRStackParamList>();
+
+function QRNavigator() {
+	return (
+		<QRStack.Navigator>
+			<QRStack.Screen
+				name="QRScreen"
+				component={QRScreen}
+				options={{ headerTitle: 'QR Scanner' }}
+			/>
+		</QRStack.Navigator>
+	);
+}
+
+const GobblesStack = createStackNavigator<GobblesStackParamList>();
+
+function GobblesNavigator() {
+	return (
+		<GobblesStack.Navigator>
+			<GobblesStack.Screen name="GobbleScreen" component={GobbleScreen} options={{ headerTitle: 'Gobbles' }} />
+			<GobblesStack.Screen name="PhotoScreen" component={PhotoScreen} options={{ headerTitle: 'Photo' }} />
+		</GobblesStack.Navigator>
+	);
+}
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -28,7 +54,7 @@ export default function BottomTabNavigator() {
 			/>
 			<BottomTab.Screen
 				name="History"
-				component={TabTwoNavigator}
+				component={GobblesNavigator}
 				options={{
 					tabBarIcon: ({ color }) => <TabBarIconFA name="glass-martini-alt" color={color} />,
 				}}
@@ -37,37 +63,10 @@ export default function BottomTabNavigator() {
 	);
 }
 
+
 function TabBarIconMaterial(props: { name: string; color: string }) {
 	return <MaterialCommunityIcons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 function TabBarIconFA(props: { name: string; color: string }) {
 	return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-	return (
-		<TabTwoStack.Navigator>
-			<TabTwoStack.Screen
-				name="GobbleScreen"
-				component={GobbleScreen}
-				options={{ headerTitle: 'Gobbles' }}
-			/>
-		</TabTwoStack.Navigator>
-	);
-}
-
-const QRStack = createStackNavigator<QRParamList>();
-
-function QRNavigator() {
-	return (
-		<QRStack.Navigator>
-			<QRStack.Screen
-				name="QRScreen"
-				component={QRScreen}
-				options={{ headerTitle: 'QR Scanner' }}
-			/>
-		</QRStack.Navigator>
-	);
 }
