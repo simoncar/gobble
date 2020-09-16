@@ -24,8 +24,6 @@ function Add(navigation) {
 	</TouchableHighlight>;
 }
 
-
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
