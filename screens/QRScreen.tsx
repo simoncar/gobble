@@ -24,10 +24,13 @@ export default function QR() {
 	}
 
 	const handleBarCodeScanned = ({ type, data }: IProps) => {
-		setScanned(true);
-		//alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-		saveURL(data)
-		Linking.openURL(data);
+
+		console.log("Scanned : ", data)
+		if (!scanned) {
+			saveURL(data)
+			setScanned(true)
+			Linking.openURL(data);
+		}
 	};
 
 	if (hasPermission === null) {
@@ -46,7 +49,7 @@ export default function QR() {
 			}}>
 			<BarCodeScanner
 				barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-				onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+				onBarCodeScanned={handleBarCodeScanned}
 				style={StyleSheet.absoluteFillObject}
 			/>
 
@@ -54,3 +57,4 @@ export default function QR() {
 		</View>
 	);
 }
+

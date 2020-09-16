@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -22,14 +22,14 @@ export default function BottomTabNavigator() {
 				name="QR"
 				component={QRScreen}
 				options={{
-					tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+					tabBarIcon: ({ color }) => <TabBarIconMaterial name="qrcode-scan" color={color} />,
 				}}
 			/>
 			<BottomTab.Screen
-				name="TabTwo"
+				name="History"
 				component={TabTwoNavigator}
 				options={{
-					tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+					tabBarIcon: ({ color }) => <TabBarIconFA name="glass-martini-alt" color={color} />,
 				}}
 			/>
 		</BottomTab.Navigator>
@@ -38,25 +38,16 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-	return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIconMaterial(props: { name: string; color: string }) {
+	return <MaterialCommunityIcons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+function TabBarIconFA(props: { name: string; color: string }) {
+	return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
-
-function TabOneNavigator() {
-	return (
-		<TabOneStack.Navigator>
-			<TabOneStack.Screen
-				name="TabOneScreen"
-				component={TabOneScreen}
-				options={{ headerTitle: 'Tab One Title' }}
-			/>
-		</TabOneStack.Navigator>
-	);
-}
 
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
