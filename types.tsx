@@ -7,6 +7,7 @@ export type BottomTabParamList = {
 	TabOne: undefined;
 	TabTwo2: undefined;
 	QR: undefined;
+
 	"History": undefined;
 };
 
@@ -15,9 +16,10 @@ export type TabOneParamList = {
 };
 
 export type TabTwoParamList = {
-	TabTwoScreen: undefined;
+	GobbleScreen: undefined;
 };
 
 export type QRParamList = {
 	QR: undefined;
+	QRScreen: undefined;
 };

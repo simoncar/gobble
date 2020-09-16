@@ -21,7 +21,7 @@
 		],
 		"ios": {
 			"supportsTablet": true,
-			"buildNumber": "1",
+			"buildNumber": "2",
 			"bundleIdentifier": "co.simon.gobble"
 		},
 		"android": {
