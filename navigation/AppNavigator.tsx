@@ -1,14 +1,14 @@
+import * as React from 'react';
+
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import GobbleScreen from '../screens/GobbleScreen';
 import QRScreen from '../screens/QRScreen';
 import PhotoScreen from '../screens/PhotoScreen';
-
 import { BottomTabParamList, GobblesStackParamList, QRStackParamList } from '../types';
 
 const QRStack = createStackNavigator<QRStackParamList>();

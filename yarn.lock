@@ -1108,7 +1108,7 @@
   dependencies:
     cross-spawn "^6.0.5"
 
-"@expo/vector-icons@^10.0.0", "@expo/vector-icons@^10.0.2":
+"@expo/vector-icons@^10.0.2", "@expo/vector-icons@^10.2.1":
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.2.1.tgz#47fb2fa12d7ad601835babde6bd3ddea7f6fde89"
   integrity sha512-clYQZFLeU2y23n03hXg18EEsZS5c73sJJnfderztfSAqkUXkfUtv07fwuprYwbHIvgFkw6L7R6xJOCVYtS85iQ==
@@ -2391,6 +2391,11 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+
+"@types/uuid@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
+  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
 
 "@types/yargs-parser@*":
   version "15.0.0"
@@ -4124,6 +4129,11 @@ expo-font@~8.2.1:
   dependencies:
     fbjs "1.0.0"
     fontfaceobserver "^2.1.0"
+
+expo-image-manipulator@~8.2.1:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-8.2.1.tgz#8b9c9dc40615f045d49b3a3d53e41e3dbede1777"
+  integrity sha512-xz8gG6NWAEDzPe4rbHJCpCrNpfHWh5GBghBRRB6waZs3IMFTvGK/gUyor53xl+9VLi0f/ypGeWPyxl25GeBkMw==
 
 expo-keep-awake@~8.2.1:
   version "8.2.1"

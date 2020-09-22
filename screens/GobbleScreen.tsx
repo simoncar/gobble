@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, TouchableHighlight } from 'react-native';
+import { StyleSheet, TouchableHighlight, FlatList } from 'react-native';
 import { Entypo } from "@expo/vector-icons";
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -8,15 +8,27 @@ export default function GobbleScreen({ navigation }) {
 	return (
 		<View style={styles.container}>
 			{Add(navigation)}
-
-			<Text style={styles.title}>Gobble</Text>
-			<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-			<EditScreenInfo path="/screens/GobbleScreen.tsx" />
+			<FlatList
+				data={[
+					{ title: 'Title Text 1', key: 'i1' },
+					{ title: 'Title Text 2', key: 'i2' },
+					{ title: 'Title Text 3', key: 'i3' }
+				]}
+				renderItem={({ item, index, separators }) => (
+					<TouchableHighlight
+						onShowUnderlay={separators.highlight}
+						onHideUnderlay={separators.unhighlight}>
+						<View style={{ backgroundColor: 'white' }}>
+							<Text>{item.title}</Text>
+						</View>
+					</TouchableHighlight>
+				)}
+			/>
 		</View>
 	);
 }
 
-function Add(navigation) {
+function Add(navigation: any) {
 	return <TouchableHighlight style={styles.addStep} underlayColor="#ff7043" onPress={() => {
 		navigation.push("PhotoScreen",);
 	}}>

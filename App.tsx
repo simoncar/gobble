@@ -21,7 +21,6 @@ var firebaseConfig = {
 };
 
 export default function App() {
-	const [loggedIn, setLoggedIn] = useState(false);
 	const [firebaseLoaded, setFirebaseLoaded] = useState(false);
 	const isLoadingComplete = useCachedResources();
 	const colorScheme = useColorScheme();
@@ -33,23 +32,14 @@ export default function App() {
 			if (!firebase.apps.length) {
 				firebase.initializeApp(firebaseConfig);
 			}
-			firebase.auth().onAuthStateChanged(user => {
-				if (user) {
-					user.getIdTokenResult().then(idTokenResult => {
-						if (idTokenResult.claims.sais_edu_sg) {
-							setLoggedIn(true);
-						} else {
-							setLoggedIn(false);
-						}
-					});
-				} else {
-					setLoggedIn(false);
-				}
+			firebase.auth().signInAnonymously()
 
+			firebase.auth().onAuthStateChanged(user => {
 				if (!firebaseLoaded) setFirebaseLoaded(true);
+				console.log("user:", user)
 			});
 		} catch (e) {
-			console.log("firebase error", e.message);
+			console.log("firebase error initializeApp: ", e.message);
 		}
 	}, []);
 

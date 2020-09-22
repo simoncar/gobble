@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, Dimensions, TouchableHighlight } from 'react-native';
 import { Text, View } from '../components/Themed';
-import { Camera } from 'expo-camera';
+import * as firebase from 'firebase';
+import { Camera, CameraCapturedPicture } from 'expo-camera';
+import * as ImageManipulator from "expo-image-manipulator";
 import { Entypo } from "@expo/vector-icons";
+import uuid from "uuid";
 
-import { savePhoto } from "../util/photo"
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
 export default function PhotoScreen({ navigation }) {
 
 	const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
-
 
 	let camera: Camera | null = null;
 
@@ -29,57 +30,105 @@ export default function PhotoScreen({ navigation }) {
 		return <Text>No access to camera</Text>;
 	}
 
-	let snap = () => {
+	const snap = async () => {
+		const d = new Date()
 		if (camera) {
-			console.log("im doing stuff")
-			camera.takePictureAsync()
 
+			camera.takePictureAsync()
+				.then(async (photo: CameraCapturedPicture) => {
+
+					try {
+						const convertedImage = await ImageManipulator.manipulateAsync(
+							photo.uri,
+							[{ resize: { height: 1000 } }],
+							{
+								compress: 7,
+							}
+						)
+
+						const blob: Blob | Uint8Array | ArrayBuffer | null = await new Promise((resolve, reject) => {
+							const xhr = new XMLHttpRequest();
+							xhr.onload = () => {
+								try {
+									resolve(xhr.response);
+								} catch (error) {
+									console.log("error:", error);
+								}
+							};
+							xhr.onerror = function (e) {
+								console.log(e)
+								reject(new TypeError("Network request failed"));
+							};
+							xhr.responseType = "blob";
+							xhr.open("GET", convertedImage.uri, true);
+							xhr.send(null);
+						});
+
+						if (blob != null) {
+							const uriParts = convertedImage.uri.split(".");
+							const fileType = uriParts[uriParts.length - 1];
+
+							firebase
+								.storage()
+								.ref("photos/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
+								.child(uuid.v4())
+								.put(blob, { contentType: "image/jpeg", cacheControl: 'max-age=31536000' })
+								.then(() => {
+									console.log("Sent!");
+								})
+								.catch((e) => console.log("error:", e));
+						} else {
+							console.log("error with blob");
+						}
+					} catch (e) {
+						console.log("firebase error:", e.message);
+					}
+				})
 		};
 	}
-}
 
-return (
-	<View style={{ flex: 1 }}>
-		<Camera
-			style={{ flex: 1 }}
-			type={type}
-			ref={ref => {
-				camera = ref;
-			}}
-		>
-			<View
-				style={{
-					flex: 1,
-					backgroundColor: 'transparent',
-					flexDirection: 'row',
-				}}>
-
-				<TouchableHighlight style={styles.camera} underlayColor="#ff7043"
-					onPress={() => { snap() }}
-				>
-					<Entypo name="camera" size={28} color={"white"} />
-				</TouchableHighlight>
-
-
-				<TouchableOpacity
+	return (
+		<View style={{ flex: 1 }}>
+			<Camera
+				style={{ flex: 1 }}
+				type={type}
+				ref={ref => {
+					camera = ref;
+				}}
+			>
+				<View
 					style={{
-						flex: 0.1,
-						alignSelf: 'flex-end',
-						alignItems: 'center',
-					}}
-					onPress={() => {
-						setType(
-							type === Camera.Constants.Type.back
-								? Camera.Constants.Type.front
-								: Camera.Constants.Type.back
-						);
+						flex: 1,
+						backgroundColor: 'transparent',
+						flexDirection: 'row',
 					}}>
-					<Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-				</TouchableOpacity>
-			</View>
-		</Camera>
-	</View>
-);
+
+					<TouchableHighlight style={styles.camera} underlayColor="#ff7043"
+						onPress={() => { snap() }}
+					>
+						<Entypo name="camera" size={28} color={"white"} />
+					</TouchableHighlight>
+
+
+					<TouchableOpacity
+						style={{
+							flex: 0.1,
+							alignSelf: 'flex-end',
+							alignItems: 'center',
+						}}
+						onPress={() => {
+							setType(
+								type === Camera.Constants.Type.back
+									? Camera.Constants.Type.front
+									: Camera.Constants.Type.back
+							);
+						}}>
+						<Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+					</TouchableOpacity>
+				</View>
+			</Camera>
+		</View>
+	);
 }
 
 
