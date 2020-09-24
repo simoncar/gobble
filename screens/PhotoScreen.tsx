@@ -20,6 +20,7 @@ export default function PhotoScreen({ navigation }) {
 	useEffect(() => {
 		(async () => {
 			const { status } = await Permissions.askAsync(Permissions.CAMERA);
+			await Permissions.askAsync(Permissions.CAMERA);
 			setHasPermission(status === 'granted')
 		})();
 	}, []);
@@ -38,51 +39,51 @@ export default function PhotoScreen({ navigation }) {
 			camera.takePictureAsync()
 				.then(async (photo: CameraCapturedPicture) => {
 
+					uploadImageAsync(photo.uri)
+
+
 					try {
-						const convertedImage = await ImageManipulator.manipulateAsync(
-							photo.uri,
-							[{ resize: { height: 1000 } }],
-							{
-								compress: 7,
-							}
-						)
+						// const convertedImage = await ImageManipulator.manipulateAsync(
+						// 	photo.uri,
+						// 	[{ resize: { height: 1000 } }],
+						// 	{
+						// 		compress: 7,
+						// 	}
+						// )
 
-						const blob: Blob | Uint8Array | ArrayBuffer | null = await new Promise((resolve, reject) => {
-							const xhr = new XMLHttpRequest();
-							xhr.onload = () => {
-								try {
-									resolve(xhr.response);
-								} catch (error) {
-									console.log("error:", error);
-								}
-							};
-							xhr.onerror = function (e) {
-								console.log(e)
-								reject(new TypeError("Network request failed"));
-							};
-							xhr.responseType = "blob";
-							xhr.open("GET", convertedImage.uri, true);
-							xhr.send(null);
-						});
+						// const blob: Blob | Uint8Array | ArrayBuffer | null = await new Promise((resolve, reject) => {
+						// 	const xhr = new XMLHttpRequest();
 
-						if (blob != null) {
-							const uriParts = convertedImage.uri.split(".");
-							const fileType = uriParts[uriParts.length - 1];
+						// 	xhr.onload = () => {
+						// 		resolve(xhr.response);
+						// 	};
+						// 	xhr.onerror = function (e) {
+						// 		console.log("E:", e)
+						// 		reject(new TypeError("Network request failed"));
+						// 	};
+						// 	xhr.responseType = "blob";
+						// 	xhr.open("GET", photo.uri, true);
+						// 	xhr.send(null);
+						// });
 
-							firebase
-								.storage()
-								.ref("photos/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
-								.child(uuid.v4())
-								.put(blob, { contentType: "image/jpeg", cacheControl: 'max-age=31536000' })
-								.then(() => {
-									console.log("Sent!");
-								})
-								.catch((e) => console.log("error:", e));
-						} else {
-							console.log("error with blob");
-						}
+						// if (blob != null) {
+						// 	const uriParts = photo.uri.split(".");
+						// 	const fileType = uriParts[uriParts.length - 1];
+
+						// 	firebase
+						// 		.storage()
+						// 		.ref("photos/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
+						// 		.child(uuid.v4())
+						// 		.put(photo.uri, { contentType: "image/jpeg", cacheControl: 'max-age=31536000' })
+						// 		.then(() => {
+						// 			console.log("Sent!");
+						// 		})
+						// 		.catch((e) => console.log("error:", e));
+						// } else {
+						// 	console.log("error with blob");
+						// }
 					} catch (e) {
-						console.log("firebase error:", e.message);
+						console.log("firebase error 2:", e.message);
 					}
 				})
 		};
@@ -131,6 +132,39 @@ export default function PhotoScreen({ navigation }) {
 		</View>
 	);
 }
+
+async function uploadImageAsync(uri) {
+	// Why are we using XMLHttpRequest? See:
+	// https://github.com/expo/expo/issues/2402#issuecomment-443726662
+	const blob: Blob = await new Promise((resolve, reject) => {
+		const xhr = new XMLHttpRequest();
+		console.log("CCC")
+		xhr.onload = function () {
+			console.log("AAA")
+			resolve(xhr.response);
+			console.log("BBB")
+		};
+		xhr.onerror = function (e) {
+			console.log("EX:", e);
+			reject(new TypeError('Network request failed 44'));
+		};
+		xhr.responseType = 'blob';
+		xhr.open('GET', uri, true);
+		xhr.send(null);
+	});
+
+	// const ref = firebase
+	// 	.storage()
+	// 	.ref()
+	// 	.child(uuid.v4());
+	// const snapshot = await ref.put(blob);
+
+	// We're done with the blob, close and release it
+	blob.close();
+
+	return await snapshot.ref.getDownloadURL();
+}
+
 
 
 const styles = StyleSheet.create({
