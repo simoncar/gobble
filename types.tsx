@@ -20,4 +20,6 @@ export type GobblesStackParamList = {
 export type QRStackParamList = {
 	QR: undefined;
 	QRScreen: undefined;
+	HomeScreen: undefined;
 };
+

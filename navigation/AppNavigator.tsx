@@ -8,6 +8,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import GobbleScreen from '../screens/GobbleScreen';
 import QRScreen from '../screens/QRScreen';
+import HomeScreen from '../screens/HomeScreen';
 import PhotoScreen from '../screens/PhotoScreen';
 import { BottomTabParamList, GobblesStackParamList, QRStackParamList } from '../types';
 
@@ -16,11 +17,9 @@ const QRStack = createStackNavigator<QRStackParamList>();
 function QRNavigator() {
 	return (
 		<QRStack.Navigator>
-			<QRStack.Screen
-				name="QRScreen"
-				component={QRScreen}
-				options={{ headerTitle: 'QR Scanner' }}
-			/>
+			<QRStack.Screen name="HomeScreen" component={HomeScreen} options={{ headerTitle: 'Home' }} />
+			<QRStack.Screen name="QRScreen" component={QRScreen} options={{ headerTitle: 'QR Scanner' }} />
+			<QRStack.Screen name="PhotoScreen" component={PhotoScreen} options={{ headerTitle: 'Photo' }} />
 		</QRStack.Navigator>
 	);
 }
@@ -47,7 +46,7 @@ export default function BottomTabNavigator() {
 			tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
 			<BottomTab.Screen
 				name="QR"
-				component={QRScreen}
+				component={QRNavigator}
 				options={{
 					tabBarIcon: ({ color }) => <TabBarIconMaterial name="qrcode-scan" color={color} />,
 				}}

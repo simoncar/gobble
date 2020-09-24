@@ -6,6 +6,7 @@ import { Camera, CameraCapturedPicture } from 'expo-camera';
 import * as ImageManipulator from "expo-image-manipulator";
 import { Entypo } from "@expo/vector-icons";
 import uuid from "uuid";
+import * as Permissions from "expo-permissions";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
@@ -18,8 +19,8 @@ export default function PhotoScreen({ navigation }) {
 
 	useEffect(() => {
 		(async () => {
-			const { status } = await Camera.requestPermissionsAsync();
-			setHasPermission(status === 'granted');
+			const { status } = await Permissions.askAsync(Permissions.CAMERA);
+			setHasPermission(status === 'granted')
 		})();
 	}, []);
 
