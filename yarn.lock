@@ -18,7 +18,7 @@
     invariant "^2.2.4"
     semver "^5.5.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.4.5", "@babel/core@^7.7.5", "@babel/core@^7.8.6":
+"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.4.5", "@babel/core@^7.7.5", "@babel/core@^7.9.0":
   version "7.11.6"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.11.6.tgz#3a9455dc7387ff1bac45770650bc13ba04a15651"
   integrity sha512-Wpcv03AGnmkgm6uS6k8iwhIwTrcP0m17TL1n1sy7qD0qelDu4XNeW0dN0mHfa+Gei211yDaLoEe/VlbXQzM4Bg==
@@ -4137,6 +4137,14 @@ expo-image-manipulator@~8.3.0:
   resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-8.3.0.tgz#1c6c91e4cf1cd6bbdab34ff68575b4933f39198c"
   integrity sha512-aig7uCB3G/D3y52/p0ZXG2rGyR2Gw1PkFRb7H/wGko766GTbVsjxKcIvOc0dyNEFBF4JxlQhtdzrJQC8V2Ei5g==
 
+expo-image-picker@~9.1.0:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-9.1.1.tgz#42abe9deb595fa9f9d8ac0d2ba8aad2cd6f69581"
+  integrity sha512-Etz2OQhRflfx+xFbSdma8QLZsnV/yq0M/yqYlsi3/RLiWAQYM/D/VmRfDDPiG10gm+KX3Xb5iKplNjPrWeTuQg==
+  dependencies:
+    expo-permissions "~9.3.0"
+    uuid "7.0.2"
+
 expo-keep-awake@~8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-8.3.0.tgz#11bb8073dfe453259926855c81d9f35db03a79b9"
@@ -7720,6 +7728,13 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-reanimated@~1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.13.0.tgz#1ee5d27d34bd2cee7dfad4ae9a3673300872c917"
+  integrity sha512-uadP/0QO+4TCsyPSvzRdl+76NPM7Bp8M25KQLB4Hg3tWBMjhrMrETnzNi33L/OPfmhU+7rceyi0QPe/DxKT5bQ==
+  dependencies:
+    fbjs "^1.0.0"
+
 react-native-safe-area-context@3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.1.4.tgz#9b7f883a5ae8da6218d17467a350434005893602"
@@ -7753,9 +7768,9 @@ react-native-webview@10.7.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-"react-native@https://github.com/expo/react-native/archive/sdk-39.0.0.tar.gz":
+"react-native@https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz":
   version "0.63.2"
-  resolved "https://github.com/expo/react-native/archive/sdk-39.0.0.tar.gz#b8576762d605744f207be9fa6e87391640603c7b"
+  resolved "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz#640034d6d5716abf4c3e8d8bd58a26c5ab7ac00f"
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^4.7.0"
@@ -9151,10 +9166,15 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.3.2, uuid@^3.4.0:
+uuid@3.4.0, uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+uuid@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
 
 uuid@^7.0.3:
   version "7.0.3"
