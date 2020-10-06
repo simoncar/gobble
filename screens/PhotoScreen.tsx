@@ -7,8 +7,8 @@ import * as ImageManipulator from "expo-image-manipulator";
 import { Entypo } from "@expo/vector-icons";
 import uuid from "uuid";
 
-import { Buffer } from "buffer"; // get this via: npm install buffer
-import * as FileSystem from "expo-file-system";
+//import { Buffer } from "buffer"; // get this via: npm install buffer
+//import * as FileSystem from "expo-file-system";
 
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
@@ -51,32 +51,32 @@ export default function PhotoScreen({ navigation }) {
 						)
 
 
-						const options = { encoding: FileSystem.EncodingType.Base64 };
-						const base64Response = await FileSystem.readAsStringAsync(
-							convertedImage.uri,
-							options,
-						);
+						// const options = { encoding: FileSystem.EncodingType.Base64 };
+						// const base64Response = await FileSystem.readAsStringAsync(
+						// 	convertedImage.uri,
+						// 	options,
+						// );
 
 
-						// const blob: Blob | Uint8Array | ArrayBuffer | null = await new Promise((resolve, reject) => {
-						// 	const xhr = new XMLHttpRequest();
-						// 	xhr.onload = () => {
-						// 		try {
-						// 			resolve(xhr.response);
-						// 		} catch (error) {
-						// 			console.log("error:", error);
-						// 		}
-						// 	};
-						// 	xhr.onerror = function (e) {
-						// 		console.log(e)
-						// 		reject(new TypeError("Network request failed"));
-						// 	};
-						// 	xhr.responseType = "blob";
-						// 	xhr.open("GET", convertedImage.uri, true);
-						// 	xhr.send(null);
-						// });
+						const blob: Blob | Uint8Array | ArrayBuffer | null = await new Promise((resolve, reject) => {
+							const xhr = new XMLHttpRequest();
+							xhr.onload = () => {
+								try {
+									resolve(xhr.response);
+								} catch (error) {
+									console.log("error:", error);
+								}
+							};
+							xhr.onerror = function (e) {
+								console.log(e)
+								reject(new TypeError("Network request failed"));
+							};
+							xhr.responseType = "blob";
+							xhr.open("GET", convertedImage.uri, true);
+							xhr.send(null);
+						});
 
-						const blob = Buffer.from(base64Response, "base64");
+						//const blob = Buffer.from(base64Response, "base64");
 
 						const ref = firebase
 							.storage()
