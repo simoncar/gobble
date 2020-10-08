@@ -46,37 +46,37 @@ export default function PhotoScreen({ navigation }) {
 							photo.uri,
 							[{ resize: { height: 1000 } }],
 							{
-								compress: 7,
+								compress: 8,
 							}
 						)
 
 
-						const options = { encoding: FileSystem.EncodingType.Base64 };
-						const base64Response = await FileSystem.readAsStringAsync(
-							convertedImage.uri,
-							options,
-						);
+						// const options = { encoding: FileSystem.EncodingType.Base64 };
+						// const base64Response = await FileSystem.readAsStringAsync(
+						// 	convertedImage.uri,
+						// 	options,
+						// );
 
 
-						// const blob: Blob | Uint8Array | ArrayBuffer | null = await new Promise((resolve, reject) => {
-						// 	const xhr = new XMLHttpRequest();
-						// 	xhr.onload = () => {
-						// 		try {
-						// 			resolve(xhr.response);
-						// 		} catch (error) {
-						// 			console.log("error:", error);
-						// 		}
-						// 	};
-						// 	xhr.onerror = function (e) {
-						// 		console.log(e)
-						// 		reject(new TypeError("Network request failed"));
-						// 	};
-						// 	xhr.responseType = "blob";
-						// 	xhr.open("GET", convertedImage.uri, true);
-						// 	xhr.send(null);
-						// });
+						const blob: Blob | Uint8Array | ArrayBuffer = await new Promise((resolve, reject) => {
+							const xhr = new XMLHttpRequest();
+							xhr.onload = () => {
+								try {
+									resolve(xhr.response);
+								} catch (error) {
+									console.log("error:", error);
+								}
+							};
+							xhr.onerror = function (e) {
+								console.log(e)
+								reject(new TypeError("Network request failed"));
+							};
+							xhr.responseType = "blob";
+							xhr.open("GET", convertedImage.uri, true);
+							xhr.send(null);
+						});
 
-						const blob = Buffer.from(base64Response, "base64");
+						//const blob = Buffer.from(base64Response, "base64");
 
 						const ref = firebase
 							.storage()
