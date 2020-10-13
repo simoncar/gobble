@@ -91,3 +91,28 @@ export function saveURL(url: string) {
 			}
 		})
 }
+
+
+export function savePhoto(url: string) {
+
+	var docData = {
+		url: url,
+		timestamp: firebase.firestore.Timestamp.now(),
+	};
+
+	firebase
+
+	firebase
+		.firestore()
+		.collection("photo")
+		.add(docData)
+		.then(function (docRef) {
+			return ("Done:" + docRef.id)
+		})
+		.catch(function (error) {
+			console.error("Error adding document: ", error);
+		});
+
+
+
+}

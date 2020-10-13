@@ -5,11 +5,8 @@ import * as firebase from 'firebase';
 import { Camera, CameraCapturedPicture } from 'expo-camera';
 import * as ImageManipulator from "expo-image-manipulator";
 import { Entypo } from "@expo/vector-icons";
+import { savePhoto } from "../util/firebase"
 import uuid from "uuid";
-
-import { Buffer } from "buffer"; // get this via: npm install buffer
-import * as FileSystem from "expo-file-system";
-
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 
@@ -50,14 +47,6 @@ export default function PhotoScreen({ navigation }) {
 							}
 						)
 
-
-						// const options = { encoding: FileSystem.EncodingType.Base64 };
-						// const base64Response = await FileSystem.readAsStringAsync(
-						// 	convertedImage.uri,
-						// 	options,
-						// );
-
-
 						const blob: Blob | Uint8Array | ArrayBuffer = await new Promise((resolve, reject) => {
 							const xhr = new XMLHttpRequest();
 							xhr.onload = () => {
@@ -95,8 +84,13 @@ export default function PhotoScreen({ navigation }) {
 								.ref("photos/" + d.getUTCFullYear() + ("0" + (d.getMonth() + 1)).slice(-2))
 								.child(uuid.v4())
 								.put(blob, { contentType: "image/jpeg", cacheControl: 'max-age=31536000' })
-								.then(() => {
+								.then((snapshot) => {
 									console.log("Sent!");
+									return snapshot.ref.getDownloadURL(); // Will return a promise with the download link
+								})
+								.then((downloadURL) => {
+									console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+									savePhoto(downloadURL)
 								})
 								.catch((e) => console.log("error:", e));
 						} else {
